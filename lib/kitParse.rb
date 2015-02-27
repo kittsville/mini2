@@ -43,7 +43,8 @@ def parseDictionary
 		'adj.'	=> 2,
 		'v.t.'	=> 3,
 		'v.i.'	=> 4,
-		'pp.'	=> 5
+		'pp.'	=> 5,
+		'pron.'	=> 6
 	}
 
 	titleCheck = true
@@ -60,7 +61,7 @@ def parseDictionary
 		# Checks for a new word if the previous line indicated there might be one
 		if titleCheck == true
 			# Matches regular definitions
-			possibleTitle = line.scan(/^([A-Z\s]*),\s{1}(.{2,4})\s{2}(.*)/)
+			possibleTitle = line.scan(/^([A-Z\s]*),\s{1}(.{2,5})\s{2}(.*)/)
 			
 			if possibleTitle.kind_of?(Array) and possibleTitle.length == 1 and possibleTitle[0].length == 3
 				
