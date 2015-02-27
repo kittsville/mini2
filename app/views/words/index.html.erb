@@ -1,31 +1,52 @@
 <p id="notice"><%= notice %></p>
-
-<h1>Listing Words</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Word</th>
-      <th>Wordtype</th>
-      <th>Description</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @words.each do |word| %>
-      <tr>
-        <td><%= word.word %></td>
-        <td><%= word.wordtype %></td>
-        <td><%= word.description %></td>
-        <td><%= link_to 'Show', word %></td>
-        <td><%= link_to 'Edit', edit_word_path(word) %></td>
-        <td><%= link_to 'Destroy', word, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<h3>Preface</h3>
+<div class="dic-description">
+<p>
+_The Devil's Dictionary_ was begun in a weekly paper in 1881, and was
+continued in a desultory way at long intervals until 1906.  In that
+year a large part of it was published in covers with the title _The
+Cynic's Word Book_, a name which the author had not the power to
+reject or happiness to approve.  To quote the publishers of the
+present work:
+</p>
+<p>
+"This more reverent title had previously been forced upon him by
+the religious scruples of the last newspaper in which a part of the
+work had appeared, with the natural consequence that when it came out
+in covers the country already had been flooded by its imitators with a
+score of 'cynic' books -- _The Cynic's This_, _The Cynic's That_, and
+_The Cynic's t'Other_.  Most of these books were merely stupid, though
+some of them added the distinction of silliness.  Among them, they
+brought the word 'cynic' into disfavor so deep that any book bearing
+it was discredited in advance of publication."
+</p>
+<p>
+Meantime, too, some of the enterprising humorists of the country
+had helped themselves to such parts of the work as served their needs,
+and many of its definitions, anecdotes, phrases and so forth, had
+become more or less current in popular speech.  This explanation is
+made, not with any pride of priority in trifles, but in simple denial
+of possible charges of plagiarism, which is no trifle.  In merely
+resuming his own the author hopes to be held guiltless by those to
+whom the work is addressed -- enlightened souls who prefer dry wines
+to sweet, sense to sentiment, wit to humor and clean English to slang.
+</p>
+<p>
+A conspicuous, and it is hoped not unpleasant, feature of the book
+is its abundant illustrative quotations from eminent poets, chief of
+whom is that learned and ingenius cleric, Father Gassalasca Jape,
+S.J., whose lines bear his initials.  To Father Jape's kindly
+encouragement and assistance the author of the prose text is greatly
+indebted.
+</p>
+<p>
+A.B.
+</p>
+</div>
+<h3>Dictionary</h3>
+<div class="words-wrap">
+	<ul id="word-table">
+	</ul>
+</div>
 
 <br>
-
-<%= link_to 'New Word', new_word_path %>
