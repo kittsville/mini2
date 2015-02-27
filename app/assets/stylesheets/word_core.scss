@@ -1,0 +1,22 @@
+$background-color	: #F1F1F1;
+$border-radius		: 4px;
+$padding		: 10px;
+
+ul#word-table {
+	list-style: outside none none;
+	margin-left: -40px;
+	margin-top: 15px;
+	li {
+		list-style-type: none;
+		background-color: $background-color;
+		border-radius: $border-radius;
+		padding: $padding;
+		margin: 5px 0px;
+	}
+}
+
+div#single-word {
+	background-color: $background-color;
+	border-radius: $border-radius;
+	padding: $padding;
+}
