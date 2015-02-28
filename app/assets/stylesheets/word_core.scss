@@ -12,6 +12,9 @@ ul#word-table {
 		border-radius: $border-radius;
 		padding: $padding;
 		margin: 5px 0px;
+		.wtype {
+			display: none;
+		}
 	}
 }
 

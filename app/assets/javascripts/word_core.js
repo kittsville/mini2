@@ -14,12 +14,24 @@ function renderWord( rowIndex, record, columns, cellWriter ) {
 				'class'	: 'type',
 				'html'	: 'Type: ' + getWordType(record.wordtype)
 			}),
+			$('<div/>',{
+				'class'	: 'wtype',
+				'html'	: record.wordtype
+			}),
 			$('<p/>',{
 				'class'	: 'description',
 				'html'	: record.description
 			})
 		]
 	}).prop('outerHTML');
+}
+
+function readWord(index, li, record) {
+	var $li = $(li);
+	
+	record.word = $li.find('h4.title a').html();
+	record.wordtype = $li.find('div.wtype').html();
+	record.description = $li.find('p.description').html();
 }
 
 function getWordType( wordType ) {
@@ -33,12 +45,21 @@ $( document ).ready(function() {
 			url	: '/',
 			dataType: 'json'
 		}).success(function(data){
+			// Creates 'letter' attribute for filtering words by their first letter
+			data = data.filter(function(sWord){
+				sWord.letter = sWord.word[0];
+				return sWord;
+			});
+			
 			var wordTable = $('ul#word-table').dynatable({
 				table: {
-					bodyRowSelector: 'li'
+					bodyRowSelector: 'li.single-word'
 				},
 				writers: {
 					_rowWriter: renderWord
+				},
+				readers: {
+					_rowReader: readWord
 				},
 				dataset: {
 					records: data,
@@ -49,11 +70,35 @@ $( document ).ready(function() {
 					records: 'words'
 				},
 				features: {
-					pushState: false
+					pushState: false,
 				},
 				inputs: {
-					processingText: '<div class="dtable-process-wrap"><div class="dtable-process-icon glyphicon glyphicon-refresh"></div></div>'
+					processingText: '<div class="dtable-process-wrap"><div class="dtable-process-icon glyphicon glyphicon-refresh"></div></div>',
+					queries: letterSelect
 				}
+			}).data('dynatable');
+			
+			var letters = [$('<option/>',{html:''})];
+			
+			for(var i = 'A'.charCodeAt(0); i <= 'Z'.charCodeAt(0); i++) {
+				letters.push($('<option/>',{html:eval("String.fromCharCode(" + i + ")")}));
+			}
+			
+			var letterSelect = $('<select/>',{
+				html	: letters,
+				id	: 'letter-select'
+			})
+			
+			//$('select#dynatable-per-page-word-table').after(letterSelect);
+			
+			$('select#letter-select').change( function() {
+			  var value = $(this).val();
+			  if (value === "") {
+			    wordTable.queries.remove("letter");
+			  } else {
+			    wordTable.queries.add("letter",value);
+			  }
+			  wordTable.process();
 			});
 		}).fail(function(){
 			console.log('Something went wrong :(');
